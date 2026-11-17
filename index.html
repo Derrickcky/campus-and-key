@@ -1,31 +1,29 @@
-<!DOCTYPE html>
-<!-- A placeholder from the Home Sales template. Replace this file with your site's first page. -->
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Under construction</title>
-  <!-- An empty icon, so the browser doesn't log an error looking for favicon.ico -->
-  <link rel="icon" href="data:,">
-  <style>
-    :root { color-scheme: light dark; }
-    body {
-      max-width: 40rem;
-      margin: 0 auto;
-      padding: 3rem 1rem;
-      font-family: system-ui, sans-serif;
-      line-height: 1.5;
-    }
-    footer { margin-top: 3rem; font-size: 0.875rem; opacity: 0.75; }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore home sale prices and market timing across US college towns, with transparent calculations and city comparisons.">
+<title>Campus & Key | College-town home sales</title>
+<link rel="icon" href="data:,"><link rel="stylesheet" href="assets/styles.css">
+<script src="assets/data.js" defer></script><script src="assets/app.js" defer></script>
 </head>
 <body>
-  <main>
-    <h1>This site is under construction</h1>
-    <p>It will show findings from the College-town home sales dataset.</p>
-  </main>
-  <footer>
-    <p>Data: College-town home sales dataset, version 1.0 (2026). University of Illinois-Deloitte Foundation Center for Business Emerging Technologies. Data collected March 2026.</p>
-  </footer>
-</body>
-</html>
+<a class="skip" href="#main">Skip to dashboard</a>
+<header><a class="brand" href="./"><span class="brand-icon" aria-hidden="true">⌂</span> Campus <i>&</i> Key</a><nav aria-label="Main"><a href="#comparison">City comparison</a><a href="#methodology">About the data <span aria-hidden="true">↗</span></a></nav><span class="edition">RESEARCH EDITION / 2026</span></header>
+<main id="main">
+<section class="hero"><div><p class="eyebrow"><span class="dot"></span> THE COLLEGE-TOWN HOUSING REPORT</p><h1>College towns.<br>Real estate, <em>in focus.</em></h1><p class="intro">Explore what homes sold for near university campuses. Compare local markets and see the numbers behind the neighborhoods.</p></div><aside class="hero-note"><span class="line-house" aria-hidden="true">⌂</span><p>One dataset.<br>Many local stories.</p><small>Completed sales · Collected March 2026</small></aside></section>
+<section class="toolbar" aria-label="Dashboard controls"><div><span class="eyebrow">YOUR MARKET VIEW</span><p id="scope">All college towns</p></div><div class="select-wrap"><label for="city">Explore a city</label><select id="city"><option value="all">All college towns</option></select></div><button id="reset" type="button">Reset view ↺</button></section>
+<div id="status" class="sr-only" aria-live="polite"></div>
+<section class="metrics" aria-label="Market summary">
+<article class="metric"><p>Total home sales <span aria-hidden="true">↗</span></p><h2 id="sales">—</h2><small>All completed sale records</small></article>
+<article class="metric accent"><p>Median sale price <span aria-hidden="true">＄</span></p><h2 id="median">—</h2><small id="price-note"></small></article>
+<article class="metric"><p>Median days on market <span aria-hidden="true">◷</span></p><h2 id="dom">—</h2><small id="dom-note"></small></article>
+<article class="metric"><p>Campus areas <span aria-hidden="true">⌂</span></p><h2 id="campuses">—</h2><small id="coverage"></small></article>
+</section>
+<section class="analysis-grid" id="comparison"><article class="panel chart-panel"><div class="section-head"><div><p class="eyebrow">MARKET COMPARISON</p><h2>A place for every price point.</h2><p>Median sale price by city · US dollars</p></div><div class="sort-control"><label for="sort">Order cities</label><select id="sort"><option value="price-desc">Price: high to low</option><option value="price-asc">Price: low to high</option><option value="name">City: A–Z</option></select></div></div><p class="chart-hint">Select a city bar to explore its market. All cities remain visible for comparison.</p><div id="chart" class="chart" aria-label="City median sale prices"></div><p class="panel-foot">Medians include sale prices of $1,000 or more. Bar lengths start at $0.</p></article>
+<aside class="insights"><article class="insight-card"><p class="eyebrow">THE BIG PICTURE</p><h2>Different towns.<br>Different markets.</h2><div id="findings"></div><span class="insight-art" aria-hidden="true">⌂ ⌂ ⌂</span></article><article class="panel small-panel"><p class="eyebrow">READ THE NUMBERS</p><h3>Why use the median?</h3><p>The midpoint is less sensitive to unusually expensive sales than an average. It describes this sample, not the value of every home in a city.</p></article><article class="quality-note"><span aria-hidden="true">ⓘ</span><div><strong>Transparency comes standard.</strong><p id="quality"></p><a href="#methodology">See our calculation rules ↓</a></div></article></aside></section>
+<section class="panel table-panel"><div class="section-head"><div><p class="eyebrow">THE LOCAL DETAILS</p><h2>Your city comparison, at a glance.</h2><p>Counts, prices, and timing for every city in the sample.</p></div><button id="download" type="button">Download summary ↓</button></div><div class="table-scroll"><table><caption class="sr-only">City statistics in the selected chart order. Highlighted row is the selected city.</caption><thead><tr><th scope="col">City / state</th><th scope="col">Total sales</th><th scope="col">Price sample</th><th scope="col">Median price</th><th scope="col">Median days*</th></tr></thead><tbody id="city-table"></tbody></table></div><p class="panel-foot">*Listing to contract, using valid nonnegative intervals only. Counts for timing are shown below each value. Select a city by its name.</p></section>
+<section id="methodology" class="methodology"><div><p class="eyebrow">BUILT ON TRANSPARENCY</p><h2>A clear view starts<br>with clear rules.</h2><p id="date-range"></p><a href="docs/data_description_sheet.md">Read the original data description ↗</a><br><a href="data/college_town_home_sales.csv" download>Download the original CSV ↓</a></div><div class="rules"><details open><summary>What counts as a sale or a valid price?</summary><p>Each row is one completed sale. Total sales includes every row, even with a missing closing date. Price medians use finite prices of at least $1,000; prices above $5 million are retained and disclosed. No missing prices are filled in and no upper cap is applied. City groups use both city and state. These are sample comparisons, not estimates of an entire housing market.</p></details><details><summary>How do we calculate days on market?</summary><p>Contract date minus list date, in calendar days. Both dates must be valid and the interval nonnegative. Same-day contracts count as zero; missing dates never do. We do not use closing date to measure days on market. Missing listing histories are not random, so timing describes only the usable subset and may underrepresent new construction or off-market sales.</p></details><details><summary>How do we handle duplicates and unreliable fields?</summary><p>Listing IDs are checked for uniqueness. Repeated street addresses are kept: they can represent separate apartments or separate sales. ZIP codes, county FIPS codes, and parcel numbers remain text. We do not analyze home type because it is unreliable. We also avoid price per square foot, lot size, bathroom, tax, and assessment analyses because of missing or implausible values; assessed value is not sale price.</p></details><details><summary>Where did the data come from?</summary><p>College-town home sales dataset, version 1.0 (2026). University of Illinois-Deloitte Foundation Center for Business Emerging Technologies. Collected March 2026 from public property listings. Values reflect the collection source and were not verified against county records. Campus assignments use nearest campus coordinates; distance is straight-line, not driving distance. All five supplied dataset files are preserved unchanged.</p></details></div></section>
+<noscript><p>This dashboard needs JavaScript enabled to display its calculations. The original data and description links remain available.</p></noscript>
+</main><footer><a class="brand" href="./">Campus <i>&</i> Key</a><p>A closer look at college-town housing.<br>Class research project · Dataset v1.0 · Not a live market feed</p><a href="#main">Back to top ↑</a></footer>
+</body></html>
